@@ -3,7 +3,8 @@
 #include <utility>
 
 
-void IntervalScan::Init(string filename, double d, double camera_x) {
+void IntervalScan::Init(string filename, double d, double camera_x) 
+{
 	ifstream file(filename);
 	double xobj = 0, yobj = 0, zobj = 0;
 	int counter = 0;
@@ -94,6 +95,7 @@ void IntervalScan::Init(string filename, double d, double camera_x) {
 			if (VT[i].z < zmin) zmin = VT[i].z;
 
 		}
+
 		// build edges and polygons
 		for (int i = 0; i < n_faces; i++) {
 			// build edges
@@ -146,12 +148,14 @@ void IntervalScan::Init(string filename, double d, double camera_x) {
 			polygon->color = Color::White;
 			PT.push_back(*polygon);
 		}
+
 		// По умолчанию нормали к вершинам равны нормали полигона
 		for (auto it = PT.begin(); it != PT.end(); it++) {
 			it->normals_.push_back(it->normal);
 			it->normals_.push_back(it->normal);
 			it->normals_.push_back(it->normal);
 		}
+
 		// Поиск соседних полигонов и усреднение их нормалей
 		for (auto it = PT.begin(); it != PT.end(); it++)
 			for (auto it2 = PT.begin(); it2 != PT.end(); it2++) {
@@ -268,6 +272,7 @@ void IntervalScan::Init(string filename, double d, double camera_x) {
 			background_edge22.ymin = 0;
 			background_edge22.x = WINDOW_WIDTH;
 			ET.push_back(background_edge22);
+			
 		}
 	}
 	else {
@@ -348,9 +353,10 @@ Image IntervalScan::Scan(bool is_black_white, Light light, bool is_flat) {
 	return image;
 }
 
+/*
 int main() {
 	Light light;
-	std::string filename = "cylinder.obj";
+	std::string filename = "sphere.obj";
 	double initial = -6000.f;
 	RenderWindow window(VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "LAB 3");
 	IntervalScan intervalScan;
@@ -383,3 +389,4 @@ int main() {
 		window.display();
 	}
 }
+*/
